@@ -15,6 +15,45 @@ class NasaDailyNewsController < ApplicationController
     request = Net::HTTP::Get.new(uri.request_uri)
 
     response = http.request(request)
-    @json = JSON.parse(response.body)
+    json = JSON.parse(response.body)
+
+    newNDN = NasaDailyNews.new(copyright: json["copyright"], date: json["date"], explanation: json["explanation"], 
+                               hdurl: json["hdurl"], media_type: json["media_type"], service_version: json["service_version"], 
+                               title: json["title"], url: json["url"])
+    
+    attempToSave(newNDN, json["date"])
+    
+    @NDN = NasaDailyNews.all
   end
+
+  private
+
+    #DB saving methods
+    def attempToSave(nasaEntry, jsonDate)
+      if NasaDailyNews.any? == false 
+        save(nasaEntry)
+      else
+        saveUnlessEntryIsAlreadySaved(nasaEntry, jsonDate)
+      end
+    end
+
+    def saveUnlessEntryIsAlreadySaved(nasaEntry, jsonDate)
+      if NasaDailyNews.last.date != jsonDate
+          save(nasaEntry)
+      else 
+        puts "DEVELOPER NOTES:"
+        puts "Entry already exists"
+      end
+    end
+
+    def save(nasaEntry) 
+      if nasaEntry.save
+        puts "DEVELOPER NOTES:"
+        puts "Entry added"
+      else 
+        puts "DEVELOPER NOTES:"
+        puts "Error saving nasa data into database"
+      end
+    end
+
 end

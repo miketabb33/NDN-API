@@ -1,0 +1,2 @@
+class NasaDailyNews < ApplicationRecord
+end

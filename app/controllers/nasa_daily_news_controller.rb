@@ -1,0 +1,2 @@
+class NasaDailyNewsController < ApplicationController
+end

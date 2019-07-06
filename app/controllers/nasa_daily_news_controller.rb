@@ -1,6 +1,6 @@
 class NasaDailyNewsController < ApplicationController
-  require "PersistentData"
-  require "RequestJSON"
+  require "persistent_data"
+  require "request_json"
 
   def index 
     persistentData = PersistentData.new

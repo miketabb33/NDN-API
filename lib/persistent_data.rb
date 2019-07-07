@@ -1,5 +1,6 @@
 class PersistentData
   def attempToSave(nasaEntry, jsonDate)
+    NotificationMailer.error_with_upload.deliver_now
     if NasaDailyNews.any? == false 
       save(nasaEntry)
     else

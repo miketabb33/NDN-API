@@ -13,7 +13,7 @@ class PersistentData
     else 
       puts "DEVELOPER NOTES:"
       puts "Entry already exists"
-      NotificationMailer.error_with_upload(nasaEntry, "Occured because the last entry has the same date as today's to be saved entry. This error should not occur when th cron job is set to trigger every 24 hours. Possible Reason for error: Nasa did not release a new entry.").deliver_now
+      NotificationMailer.error_with_upload(nasaEntry, "Occured because the last entry has the same date as today's to be saved entry. This error should not occur when the cron job is set to trigger every 24 hours. Possible Reason for error: Nasa did not release a new entry.").deliver_now
     end
   end
 

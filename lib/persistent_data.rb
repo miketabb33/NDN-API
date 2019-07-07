@@ -1,6 +1,5 @@
 class PersistentData
   def attempToSave(nasaEntry, jsonDate)
-    NotificationMailer.error_with_upload(nasaEntry, "MESSAGE").deliver_now
     if NasaDailyNews.any? == false 
       save(nasaEntry)
     else
@@ -14,6 +13,7 @@ class PersistentData
     else 
       puts "DEVELOPER NOTES:"
       puts "Entry already exists"
+      #NotificationMailer.error_with_upload(nasaEntry, "Occured because the last entry has the same date as the currently staged to save entry. This error should not occur when th cron job is set to trigger every 24 hours. Possible error: Nasa did not release a new entry").deliver_now
     end
   end
 
@@ -24,6 +24,7 @@ class PersistentData
     else 
       puts "DEVELOPER NOTES:"
       puts "Error saving nasa data into database"
+      NotificationMailer.error_with_upload(nasaEntry, "Occured when the system saved the entry to the database.").deliver_now
     end
   end
 end

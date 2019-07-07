@@ -12,6 +12,14 @@ class RequestJSON
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     request = Net::HTTP::Get.new(uri.request_uri)
-    return http.request(request)
+    response = http.request(request)
+
+    if response.code != "200" 
+      return JSON.parse(response.body)
+    else
+      puts "DEVELOPER NOTES:"
+      puts "Error in retrieving json data from nasa.com. Code: #{response.code}"
+      NotificationMailer.error_with_json_request(response)
+    end
   end
 end

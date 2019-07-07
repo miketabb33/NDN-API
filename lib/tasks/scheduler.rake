@@ -7,8 +7,6 @@ task :adding_nasa_entry => :environment do
   persistentData = PersistentData.new
   requestJSON = RequestJSON.new 
 
-  NotificationMailer.error_with_upload
-
   response = requestJSON.getNasaJSON()
   json = JSON.parse(response.body)
   newNDN = NasaDailyNews.new(copyright: json["copyright"], date: json["date"], explanation: json["explanation"], 

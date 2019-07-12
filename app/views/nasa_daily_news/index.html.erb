@@ -1,7 +1,13 @@
-<p>
-  <% @NDN.each do |entry| %>
-    <%= entry.to_json %>
-    <br>
-    <br>
-  <% end %>
-</p>
+{
+ "totalItems": <%= @NDN.length %>,
+ "items": [
+ <% @NDN.each do |entry| %>
+  {
+   "date": "<%= entry["date"] %>",
+   "title": "<%= entry["title"] %>",
+   "explanation": "<%= entry["explanation"] %>",
+   "url": "<%= entry["url"] %>"
+  }<% if entry != @NDN.last %>,<% end %>
+ <% end %>
+ ]
+}

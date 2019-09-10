@@ -3,11 +3,11 @@ class NasaDailyNewsController < ApplicationController
 
 
   def index 
-    t = false
-    if t 
-      render html: "Permission is not granted to access this page"
-    else
+    puts params
+    if params[:id] == "1"
       @NDN = NasaDailyNews.all.order(created_at: :desc)
+    else
+      render html: "Permission is not granted to access this page"
     end
   end
 

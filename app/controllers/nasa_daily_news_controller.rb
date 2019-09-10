@@ -1,10 +1,14 @@
 class NasaDailyNewsController < ApplicationController
 
   def index 
-    if params[:id] == ENV['KEY']
-      @NDN = NasaDailyNews.all.order(created_at: :desc)
+    if Rails.env.production?
+      if params[:id] == ENV['KEY']
+        @NDN = NasaDailyNews.all.order(created_at: :desc)
+      else
+        render html: "Permission is not granted to access this page"
+      end
     else
-      render html: "Permission is not granted to access this page"
+      @NDN = NasaDailyNews.all.order(created_at: :desc)
     end
   end
 

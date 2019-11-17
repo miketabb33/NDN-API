@@ -1,12 +1,13 @@
 {
  "totalItems": <%= @NDN.length %>,
- "items": [
+ "entries": [
  <% @NDN.each do |entry| %>
   {
+   "id": "<%= entry["id"] %>",
    "date": "<%= entry["date"] %>",
    "title": "<%= entry["title"] %>",
    "explanation": "<%= entry["explanation"] %>",
-   "url": "<%= entry["url"] %>"
+   "image_url": "<%= entry["url"] %>"
   }<% if entry != @NDN.last %>,<% end %>
  <% end %>
  ]
